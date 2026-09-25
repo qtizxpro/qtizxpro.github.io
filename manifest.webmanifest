@@ -1,0 +1,31 @@
+{
+  "name": "QTIZX PRO",
+  "short_name": "QTIZX PRO",
+  "description": "Cotiza. Compara. Vende.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#5B6068",
+  "theme_color": "#5B6068",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "business",
+    "productivity"
+  ],
+  "lang": "es-MX",
+  "dir": "ltr"
+}
