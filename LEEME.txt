@@ -1,0 +1,18 @@
+QTIZX PRO — FASE 2
+
+Archivos:
+- app.js: login y revalidación usan usuarios/{UID}; branding heredado del flyer eliminado.
+- config.js: Supabase + Firebase públicos configurados.
+- index.html: cache-busting actualizado para esta fase.
+- firestore.rules: permite a cada usuario autenticado leer únicamente su propio perfil.
+
+IMPORTANTE:
+Esta fase NO migra todavía el Panel de Accesos/Adopción completo desde la colección histórica
+'empleados'. Esos módulos requieren una migración funcional separada porque usuarios/{UID}
+usa UID como ID y las reglas jerárquicas deben diseñarse junto con sus consultas.
+
+Prueba inicial:
+1. Publicar firestore.rules.
+2. Subir index.html, config.js y app.js juntos.
+3. Recargar/Actualizar la PWA.
+4. Iniciar sesión con ACHINASD y su contraseña.
