@@ -1,0 +1,24 @@
+QTIZX PRO — V77
+Implementación multidistribuidor / QiORA
+
+Incluye:
+- index.html
+- app.js
+- admin.html
+- admin.js
+- distribuidores.sql
+
+Cambios incluidos:
+1. Personalización por el campo "distribuidor" del usuario en Firebase.
+2. Administración de distribuidores y branding.
+3. Icono/logo de QiORA para usuarios asignados al distribuidor qiora.
+4. Logo de distribuidor en las cotizaciones generadas.
+5. Leyenda dinámica al final de la cotización de texto/WhatsApp:
+   "Cotización generada por [Distribuidor]".
+6. Los usuarios de otros distribuidores conservan el comportamiento existente.
+
+Instalación:
+1. Ejecutar distribuidores.sql en Supabase SQL Editor (si todavía no se ha ejecutado).
+2. Sustituir index.html, app.js, admin.html y admin.js por los incluidos en este paquete.
+3. Desde Admin, configurar los logos del distribuidor QiORA.
+4. Verificar que el usuario tenga distribuidor: "qiora" en Firebase.
