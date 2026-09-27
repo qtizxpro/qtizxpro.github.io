@@ -1,0 +1,12 @@
+QTIZX PRO V12
+
+Cambios:
+- Cabecera de cotización corregida: QTIZX PRO a la izquierda e identidad del distribuidor a la derecha.
+- El logo claro/blanco del distribuidor se muestra sobre cabecera oscura.
+- Funciona en cotización simple y comparativas que usan la cabecera compartida.
+- Se conserva la identidad dinámica desde Firebase + Supabase.
+- Eliminadas referencias de marcas heredadas solicitadas.
+- Service Worker actualizado a cache qtizxpro-v12.
+
+Supabase:
+La tabla public.distribuidores debe conservar permisos SELECT para anon/authenticated y la policy RLS de lectura de registros activos.
