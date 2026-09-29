@@ -13129,3 +13129,73 @@ async function _v23ExportActividadExcel(){
 }
 exportarDashboardExcel=_v23ExportActividadExcel;
 
+/* BLOQUE C - DEBAJO DE A Y B */
+(function(){
+
+  function crearBloqueC(){
+
+    const grid = document.querySelector('#s-home .ws-grid');
+    if(!grid) return;
+
+    if(document.getElementById('qtizx-bloque-c')) return;
+
+    const bloque = document.createElement('div');
+    bloque.id = 'qtizx-bloque-c';
+
+    bloque.innerHTML = `
+      <div class="qtizx-footer-text">
+        Qtizx Pro 2026 v1.1
+      </div>
+    `;
+
+    grid.insertAdjacentElement('afterend', bloque);
+  }
+
+  const style = document.createElement('style');
+
+  style.textContent = `
+    @media (min-width:1080px){
+
+      #qtizx-bloque-c{
+        width:100%;
+        box-sizing:border-box;
+
+        margin-top:16px;
+        min-height:180px;
+
+        background:#68717b;
+        border-radius:14px;
+
+        display:flex;
+        align-items:flex-end;
+        justify-content:center;
+
+        padding:25px;
+      }
+
+      .qtizx-footer-text{
+        font-size:12px;
+        font-weight:500;
+        opacity:.55;
+        text-align:center;
+      }
+
+    }
+
+    @media (max-width:1079px){
+      #qtizx-bloque-c{
+        display:none;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', crearBloqueC);
+  }else{
+    crearBloqueC();
+  }
+
+})();
+
