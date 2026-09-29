@@ -13129,7 +13129,7 @@ async function _v23ExportActividadExcel(){
 }
 exportarDashboardExcel=_v23ExportActividadExcel;
 
-/* BLOQUE C - DEBAJO DE A Y B */
+/* BLOQUES A + B Y BLOQUE C - ESCRITORIO */
 (function(){
 
   function crearBloqueC(){
@@ -13156,22 +13156,44 @@ exportarDashboardExcel=_v23ExportActividadExcel;
   style.textContent = `
     @media (min-width:1080px){
 
+      /* ========================================
+         ALTURA DE BLOQUES A Y B
+         Cambia 700px para subir o bajar altura
+         ======================================== */
+
+      #s-home .ws-grid{
+        height:900px !important;
+        min-height:900px !important;
+        max-height:900px !important;
+      }
+
+
+      /* ========================================
+         BLOQUE C
+         ======================================== */
+
       #qtizx-bloque-c{
         width:100%;
         box-sizing:border-box;
 
-        margin-top:16px;
-        min-height:180px;
+        margin-top:8px;
+
+        /* ALTURA DEL BLOQUE C */
+        height:40px;
+        min-height:40px;
 
         background:#68717b;
         border-radius:14px;
 
         display:flex;
-        align-items:flex-end;
+        align-items:center;
         justify-content:center;
 
-        padding:25px;
+        padding:10px 20px;
       }
+
+
+      /* TEXTO DEL BLOQUE C */
 
       .qtizx-footer-text{
         font-size:12px;
@@ -13182,20 +13204,32 @@ exportarDashboardExcel=_v23ExportActividadExcel;
 
     }
 
+
+    /* NO MODIFICAR VERSIÓN MÓVIL */
+
     @media (max-width:1079px){
+
       #qtizx-bloque-c{
         display:none;
       }
+
     }
   `;
 
   document.head.appendChild(style);
 
+
   if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', crearBloqueC);
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      crearBloqueC
+    );
+
   }else{
+
     crearBloqueC();
+
   }
 
 })();
-
