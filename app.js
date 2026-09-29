@@ -13131,7 +13131,7 @@ exportarDashboardExcel=_v23ExportActividadExcel;
 
 /* BLOQUES A + B Y BLOQUE C - ESCRITORIO — AJUSTE DIRECTO */
 (function(){
-  const ALTURA_AB = 500; // <-- ÚNICO NÚMERO PARA SUBIR/BAJAR A Y B
+  const ALTURA_AB = 550; // <-- ÚNICO NÚMERO PARA SUBIR/BAJAR A Y B
   const ALTURA_C  = 40;  // <-- ALTURA DEL BLOQUE C
 
   function aplicar(){
