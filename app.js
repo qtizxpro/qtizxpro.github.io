@@ -13131,7 +13131,7 @@ exportarDashboardExcel=_v23ExportActividadExcel;
 
 /* BLOQUES A + B Y BLOQUE C - ESCRITORIO — AJUSTE DIRECTO */
 (function(){
-  const ALTURA_AB = 700; // <-- ÚNICO NÚMERO PARA SUBIR/BAJAR A Y B
+  const ALTURA_AB = 650; // <-- ÚNICO NÚMERO PARA SUBIR/BAJAR A Y B
   const ALTURA_C  = 40;  // <-- ALTURA DEL BLOQUE C
 
   function aplicar(){
@@ -13206,7 +13206,7 @@ exportarDashboardExcel=_v23ExportActividadExcel;
         box-sizing:border-box;
         margin-top:8px;
         padding:0 20px;
-        background:#68717b;
+        background:transparent;
         border-radius:14px;
         display:flex;
         align-items:center;
