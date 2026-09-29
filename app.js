@@ -13131,95 +13131,91 @@ exportarDashboardExcel=_v23ExportActividadExcel;
 
 
 /* ═══════════════════════════════════════════════════════════════════════
-   QTIZX PRO V24 — ESCRITORIO: A/B FIJOS A LA ALTURA REAL DEL GENERADOR
-   Parte de V23 FINAL. NO modifica Actividad ni su exportación Excel.
+   QTIZX PRO V25 — INICIO ESCRITORIO
+   Conserva el layout V23. Solo evita que A/B sigan creciendo en viewports
+   altos/zoom reducido y habilita continuación de página + leyenda.
+   Actividad/Excel NO se modifican.
    ═══════════════════════════════════════════════════════════════════════ */
 (function(){
-  var mq=window.matchMedia('(min-width:1080px)');
-  var timer=null;
+  function installV25DesktopPage(){
+    if(document.getElementById('qtizx-v25-desktop-page')) return;
 
-  function getParts(){
-    var grid=document.querySelector('#s-home .ws-grid');
-    if(!grid) return null;
-    var kids=Array.from(grid.children).filter(function(el){
-      return getComputedStyle(el).display!=='none';
-    });
-    if(kids.length<2) return null;
-    return {grid:grid,a:kids[0],b:kids[1]};
+    var st=document.createElement('style');
+    st.id='qtizx-v25-desktop-page';
+    st.textContent=`
+      @media (min-width:1080px){
+        /*
+          V23 conserva su altura normal. Únicamente ponemos un TECHO:
+          nunca imponemos una altura menor, por eso no se comprime el diseño.
+        */
+        #s-home .ws-grid{
+          max-height:560px!important;
+        }
+
+        /*
+          Permitir que el documento continúe debajo del workspace.
+          No se cambia la altura interna de A/B ni sus proporciones.
+        */
+        html,body{
+          height:auto!important;
+          min-height:100%!important;
+          overflow-y:auto!important;
+        }
+        #app{
+          height:auto!important;
+          min-height:0!important;
+          max-height:none!important;
+          overflow:visible!important;
+        }
+        #s-home.active{
+          height:auto!important;
+          min-height:0!important;
+          max-height:none!important;
+          overflow:visible!important;
+        }
+        #s-home>.ws-home{
+          height:auto!important;
+          min-height:0!important;
+          max-height:none!important;
+          overflow:visible!important;
+        }
+
+        #qtizx-v25-page-tail{
+          display:flex!important;
+        }
+      }
+
+      @media (max-width:1079.9px){
+        #qtizx-v25-page-tail{display:none!important;}
+      }
+
+      #qtizx-v25-page-tail{
+        display:none;
+        box-sizing:border-box;
+        width:100%;
+        min-height:150px;
+        align-items:flex-end;
+        justify-content:center;
+        padding:24px 16px 26px;
+        font-family:Roboto,Arial,sans-serif;
+        font-size:12px;
+        font-weight:500;
+        opacity:.55;
+        text-align:center;
+      }
+    `;
+    document.head.appendChild(st);
+
+    var tail=document.createElement('div');
+    tail.id='qtizx-v25-page-tail';
+    tail.textContent='Qtizx Pro 2026 v1.1';
+    document.body.appendChild(tail);
   }
 
-  function sizeDesktop(){
-    if(!mq.matches) return;
-    var p=getParts(); if(!p) return;
-
-    /* Medimos B por su CONTENIDO, nunca por la altura disponible de pantalla. */
-    p.grid.style.setProperty('align-items','start','important');
-    p.b.style.setProperty('height','auto','important');
-    p.b.style.setProperty('min-height','0','important');
-    p.b.style.setProperty('max-height','none','important');
-
-    requestAnimationFrame(function(){
-      var h=Math.ceil(p.b.scrollHeight);
-      if(!h || h<250) return;
-
-      /* Ambos bloques terminan exactamente juntos. */
-      [p.a,p.b].forEach(function(el){
-        el.style.setProperty('height',h+'px','important');
-        el.style.setProperty('min-height',h+'px','important');
-        el.style.setProperty('max-height',h+'px','important');
-        el.style.setProperty('box-sizing','border-box','important');
-      });
-      p.grid.style.setProperty('height',h+'px','important');
-      p.grid.style.setProperty('min-height',h+'px','important');
-      p.grid.style.setProperty('max-height',h+'px','important');
-
-      /* A no agranda la página: conserva el scroll interno que ya tiene V23. */
-      p.a.style.setProperty('overflow','hidden','important');
-    });
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',installV25DesktopPage);
+  }else{
+    installV25DesktopPage();
   }
-
-  function schedule(){
-    clearTimeout(timer);
-    timer=setTimeout(sizeDesktop,80);
-  }
-
-  function addFooter(){
-    if(document.getElementById('qtizx-v24-footer')) return;
-    var f=document.createElement('footer');
-    f.id='qtizx-v24-footer';
-    f.textContent='Qtizx Pro 2026 v1.1';
-    f.style.cssText='display:none;width:100%;box-sizing:border-box;text-align:center;padding:20px 16px 24px;margin-top:12px;font:500 12px Roboto,Arial,sans-serif;opacity:.55;';
-    document.body.appendChild(f);
-  }
-
-  var css=document.createElement('style');
-  css.id='qtizx-v24-fixed-desktop-css';
-  css.textContent=`
-    @media (min-width:1080px){
-      html,body{height:auto!important;min-height:100%!important;overflow-y:auto!important;}
-      #qtizx-v24-footer{display:block!important;}
-      #s-home.active{overflow:visible!important;}
-      #s-home>.ws-home{overflow:visible!important;height:auto!important;max-height:none!important;}
-    }
-    @media (max-width:1079.9px){#qtizx-v24-footer{display:none!important;}}
-  `;
-  document.head.appendChild(css);
-
-  function init(){
-    addFooter(); schedule();
-    window.addEventListener('resize',schedule,{passive:true});
-    var grid=document.querySelector('#s-home .ws-grid');
-    if(grid && window.ResizeObserver){
-      var ro=new ResizeObserver(schedule);
-      /* Observar B por cambios de equipo/plan, no el grid para evitar bucles. */
-      var p=getParts(); if(p) ro.observe(p.b);
-    }
-    /* Recalcular cuando cambie el generador por selección. */
-    document.addEventListener('click',function(e){
-      if(mq.matches && e.target.closest('#s-home')) setTimeout(schedule,120);
-    },true);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
-  else init();
 })();
 
