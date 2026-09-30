@@ -13192,7 +13192,7 @@ exportarDashboardExcel=_v23ExportActividadExcel;
     if(!bloque){
       bloque=document.createElement('div');
       bloque.id='qtizx-bloque-c';
-      bloque.innerHTML='<div class="qtizx-footer-text">Qtizx Pro 2026 - v1.51</div>';
+      bloque.innerHTML='<div class="qtizx-footer-text">Qtizx Pro 2026 - v1.51 | qtizxpro@gmail.com</div>';
       grid.insertAdjacentElement('afterend',bloque);
     }
   }
