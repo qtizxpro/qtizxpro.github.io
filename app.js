@@ -13303,7 +13303,7 @@ exportarDashboardExcel=_v23ExportActividadExcel;
     if(!bloque){
       bloque=document.createElement('div');
       bloque.id='qtizx-bloque-c';
-      bloque.innerHTML='<div class="qtizx-footer-text">Qtizx Pro 2026 - v1.62 | qtizxpro@gmail.com</div>';
+      bloque.innerHTML='<div class="qtizx-footer-text">Qtizx Pro 2026 - v1.62</div>';
     }
     // v1.62: C es el último hijo real del Home.
     // Participa en el flujo vertical después de TODO el contenido móvil.
