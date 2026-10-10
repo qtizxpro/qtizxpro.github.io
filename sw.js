@@ -1,0 +1,9 @@
+/* Qtizx Pro v2.35 — Service Worker
+   Network-first para código/documentos; caché como respaldo offline. */
+const BUILD_ID = 'QTIZX_V283';
+const CACHE_NAME = 'qtizxpro-v281';
+const CORE = ['./','./index.html','./app.js','./supabase-catalog.js','./config.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./qtizxpro-header.png'];
+self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE_NAME).then(cache=>Promise.all(CORE.map(url=>cache.add(url).catch(()=>null)))).then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)));await self.clients.claim();const clients=await self.clients.matchAll({type:'window'});clients.forEach(client=>client.postMessage({type:'SW_UPDATED',buildId:BUILD_ID}));})()));
+self.addEventListener('message',event=>{const data=event.data||{};if(data.type==='GET_BUILD_ID'){const reply={type:'BUILD_ID',buildId:BUILD_ID};if(event.ports&&event.ports[0])event.ports[0].postMessage(reply);else if(event.source)event.source.postMessage(reply);}else if(data.type==='SKIP_WAITING'){self.skipWaiting();}});
+self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;const url=new URL(event.request.url);if(url.origin!==self.location.origin)return;const freshCode=event.request.mode==='navigate'||/\.(?:html|js|json|webmanifest)$/i.test(url.pathname);event.respondWith((async()=>{try{const req=freshCode?new Request(event.request,{cache:'no-store'}):event.request;const response=await fetch(req);if(response&&response.ok){const cache=await caches.open(CACHE_NAME);cache.put(event.request,response.clone()).catch(()=>null);}return response;}catch(_err){return(await caches.match(event.request,{ignoreSearch:true}))||(event.request.mode==='navigate'?caches.match('./index.html'):Response.error());}})());});
